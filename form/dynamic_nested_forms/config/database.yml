@@ -1,29 +1,22 @@
-development:
+default: &default
   adapter: mysql2
   encoding: utf8
-  database: form_example_development
-  pool: 5
-  timeout: 5000
-  username: root
-  password:
-  collation: utf8_bin
+  collation: utf8_general_ci
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: rails
+  password: password
+  host: mysql
+
+development:
+  <<: *default
+  database: bulk_registration_form_example_development
 
 test:
-  adapter: mysql2
-  encoding: utf8
-  database: form_example_test
-  pool: 5
-  timeout: 5000
-  username: root
-  password:
-  collation: utf8_bin
+  <<: *default
+  database: bulk_registration_form_example_test
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  database: form_example
-  pool: 5
-  timeout: 5000
-  username: root
-  password:
-  collation: utf8_bin
+  <<: *default
+  database: bulk_registration_form_example_production
+  username: rails
+  password: <%= ENV['BACKEND_DATABASE_PASSWORD'] %>

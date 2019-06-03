@@ -20,9 +20,32 @@ services:
     environment:
       - PASSENGER_APP_ENV=development
     ports:
-      - "8080:8080"
+      - "3001:3001"
     volumes:
       - ./form/bulk_registration_form_example:/home/app/rails
+  dynamic_nested_forms_setup:
+    build:
+      context: ./form/dynamic_nested_forms
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    environment:
+      - PASSENGER_APP_ENV=development
+    entrypoint: ./setup.sh
+  dynamic_nested_forms:
+    container_name: dynamic_nested_forms
+    build:
+      context: ./form/dynamic_nested_forms
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - dynamic_nested_forms_setup
+    environment:
+      - PASSENGER_APP_ENV=development
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./form/dynamic_nested_forms:/home/app/rails
   mysql:
     image: mysql:5.7
     environment:

@@ -14,7 +14,9 @@ class Form::ProductCollection < Form::Base
   end
 
   def valid?
+    puts "デバッグ Form::ProductCollection#valid?"
     valid_products = target_products.map(&:valid?).all?
+    puts "valid_products: #{pp valid_products}"
     super && valid_products
   end
 

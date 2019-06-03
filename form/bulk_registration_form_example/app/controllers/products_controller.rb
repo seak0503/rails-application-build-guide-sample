@@ -16,7 +16,15 @@ class ProductsController < ApplicationController
   end
 
   def create
+    puts "デバッグ ProductsController#create"
+    puts "params: #{pp params}"
+    puts "product_collection_params: #{pp product_collection_params}"
     @form = Form::ProductCollection.new(product_collection_params)
+    ####
+    @form.valid?
+    puts "valid? 後のエラーは 1件目: #{pp @form.target_products[0].errors.full_messages}"
+    puts "valid? 後のエラーは 2件目: #{pp @form.target_products[1].errors.full_messages}"
+    ####
     if @form.save
       redirect_to :products, notice: "#{@form.target_products.size}件の商品を登録しました。"
     else

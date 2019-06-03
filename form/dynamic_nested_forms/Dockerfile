@@ -23,4 +23,4 @@ WORKDIR /home/app/rails
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 3001
+EXPOSE 3002
