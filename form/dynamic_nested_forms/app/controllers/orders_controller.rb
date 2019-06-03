@@ -19,7 +19,11 @@ class OrdersController < ApplicationController
   end
 
   def create
+    puts "デバッグ OrdersController#create"
     @order = Form::Order.new(order_params)
+    @order.valid?
+    puts "valid? #{pp @order.errors}"
+
     if @order.save
       redirect_to orders_path, notice: "受注 #{@order.name} を登録しました。"
     else
