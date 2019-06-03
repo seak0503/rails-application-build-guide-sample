@@ -14,12 +14,12 @@
 ActiveRecord::Schema.define(version: 20141028082801) do
 
   create_table "products", force: true do |t|
-    t.string   "code",          limit: 10,                 null: false, comment: "商品コード"
-    t.string   "name",          limit: 50,                 null: false, comment: "商品名"
-    t.string   "name_kana",     limit: 50, default: "",    null: false, comment: "商品名カナ"
-    t.integer  "price",                                    null: false, comment: "商品価格"
-    t.integer  "purchase_cost",                            null: false, comment: "仕入原価"
-    t.boolean  "availability",             default: false, null: false, comment: "販売可能フラグ"
+    t.string   "code",                          null: false, comment: "商品コード"
+    t.string   "name",                          null: false, comment: "商品名"
+    t.string   "name_kana",     default: "",    null: false, comment: "商品名カナ"
+    t.integer  "price",                         null: false, comment: "商品価格"
+    t.integer  "purchase_cost",                 null: false, comment: "仕入原価"
+    t.boolean  "availability",  default: false, null: false, comment: "販売可能フラグ"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

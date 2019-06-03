@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+  bulk_registration_form_example_setup:
+    build:
+      context: ./form/bulk_registration_form_example
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    environment:
+      - PASSENGER_APP_ENV=development
+    entrypoint: ./setup.sh
+  bulk_registration_form_example:
+    container_name: bulk_registration_form_example
+    build:
+      context: ./form/bulk_registration_form_example
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - bulk_registration_form_example_setup
+    environment:
+      - PASSENGER_APP_ENV=development
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./form/bulk_registration_form_example:/home/app/rails
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_USER=rails
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=bulk_registration_form_example_development
